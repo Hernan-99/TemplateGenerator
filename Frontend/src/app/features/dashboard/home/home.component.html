@@ -1,0 +1,403 @@
+<div class="flex h-screen overflow-hidden bg-gray-100">
+  <div class="flex-1 overflow-y-auto">
+    <app-header />
+
+    <main class="p-6">
+      <section
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+      >
+        <app-card title="Plantillas totales" />
+        <app-card title="Plantillas guardadas" />
+        <app-card title="Plantillas aprobadas" />
+        <app-card title="Campañas activas" />
+      </section>
+
+      <div
+        id="create-template-section"
+        class="hidden bg-white p-6 rounded-xl shadow mb-8"
+      >
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-bold text-gray-800">
+            Create New Email Template
+          </h2>
+          <button class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form>
+          <div class="mb-4">
+            <label for="template-name" class="block text-gray-700 mb-2"
+              >Template Name</label
+            >
+            <input
+              type="text"
+              id="template-name"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label for="template-subject" class="block text-gray-700 mb-2"
+              >Subject Line</label
+            >
+            <input
+              type="text"
+              id="template-subject"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label for="template-category" class="block text-gray-700 mb-2"
+              >Category</label
+            >
+            <select
+              id="template-category"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option>Promotional</option>
+              <option>Newsletter</option>
+              <option>Transactional</option>
+              <option>Welcome Series</option>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-gray-700 mb-2">Template Content</label>
+            <div class="border border-gray-300 rounded-lg overflow-hidden">
+              <div class="bg-gray-100 p-2 border-b border-gray-300">
+                <button
+                  type="button"
+                  class="px-3 py-1 bg-white border border-gray-300 rounded mr-1"
+                >
+                  <i class="fas fa-bold"></i>
+                </button>
+                <button
+                  type="button"
+                  class="px-3 py-1 bg-white border border-gray-300 rounded mr-1"
+                >
+                  <i class="fas fa-italic"></i>
+                </button>
+                <button
+                  type="button"
+                  class="px-3 py-1 bg-white border border-gray-300 rounded mr-1"
+                >
+                  <i class="fas fa-underline"></i>
+                </button>
+                <button
+                  type="button"
+                  class="px-3 py-1 bg-white border border-gray-300 rounded mr-1"
+                >
+                  <i class="fas fa-list-ul"></i>
+                </button>
+                <button
+                  type="button"
+                  class="px-3 py-1 bg-white border border-gray-300 rounded mr-1"
+                >
+                  <i class="fas fa-list-ol"></i>
+                </button>
+                <button
+                  type="button"
+                  class="px-3 py-1 bg-white border border-gray-300 rounded mr-1"
+                >
+                  <i class="fas fa-link"></i>
+                </button>
+                <button
+                  type="button"
+                  class="px-3 py-1 bg-white border border-gray-300 rounded"
+                >
+                  <i class="fas fa-image"></i>
+                </button>
+              </div>
+              <textarea
+                id="template-content"
+                rows="10"
+                class="w-full p-4 focus:outline-none"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="flex justify-end space-x-3">
+            <button
+              type="button"
+              class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+            >
+              Save Draft
+            </button>
+            <button
+              type="button"
+              class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+            >
+              Publish
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="hidden">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-bold text-gray-800">Email Templates</h2>
+          <div class="flex space-x-3">
+            <div class="relative">
+              <input
+                type="text"
+                placeholder="Search templates..."
+                class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            </div>
+            <select
+              class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option>All Categories</option>
+              <option>Promotional</option>
+              <option>Newsletter</option>
+              <option>Transactional</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            class="template-card bg-white p-6 rounded-xl shadow transition duration-300"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="font-bold text-lg">Summer Sale</h3>
+                <p class="text-sm text-gray-500">Promotional</p>
+              </div>
+              <div class="flex space-x-2">
+                <button class="text-indigo-600 hover:text-indigo-800">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-red-600 hover:text-red-800">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <div class="bg-gray-100 p-4 rounded-lg mb-4">
+              <p class="text-sm font-medium mb-1">
+                Subject: Don't miss our Summer Sale!
+              </p>
+              <p class="text-xs text-gray-600 truncate">
+                Get up to 50% off on selected items. Limited time offer. Shop
+                now and save big on your favorite products...
+              </p>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-green-600"
+                ><i class="fas fa-circle text-xs mr-1"></i> Active</span
+              >
+              <span class="text-gray-500">Last used: 2 days ago</span>
+            </div>
+          </div>
+
+          <div
+            class="template-card bg-white p-6 rounded-xl shadow transition duration-300"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="font-bold text-lg">Weekly Newsletter</h3>
+                <p class="text-sm text-gray-500">Newsletter</p>
+              </div>
+              <div class="flex space-x-2">
+                <button class="text-indigo-600 hover:text-indigo-800">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-red-600 hover:text-red-800">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <div class="bg-gray-100 p-4 rounded-lg mb-4">
+              <p class="text-sm font-medium mb-1">
+                Subject: This Week's Top Stories
+              </p>
+              <p class="text-xs text-gray-600 truncate">
+                Stay updated with our weekly roundup of news, tips, and
+                exclusive offers. This week we're featuring...
+              </p>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-green-600"
+                ><i class="fas fa-circle text-xs mr-1"></i> Active</span
+              >
+              <span class="text-gray-500">Last used: 1 week ago</span>
+            </div>
+          </div>
+
+          <div
+            class="template-card bg-white p-6 rounded-xl shadow transition duration-300"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="font-bold text-lg">Order Confirmation</h3>
+                <p class="text-sm text-gray-500">Transactional</p>
+              </div>
+              <div class="flex space-x-2">
+                <button class="text-indigo-600 hover:text-indigo-800">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-red-600 hover:text-red-800">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <div class="bg-gray-100 p-4 rounded-lg mb-4">
+              <p class="text-sm font-medium mb-1">Subject: Your Order #12345</p>
+              <p class="text-xs text-gray-600 truncate">
+                Thank you for your order! Here's your confirmation and shipping
+                details. We'll notify you when your items ship...
+              </p>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-green-600"
+                ><i class="fas fa-circle text-xs mr-1"></i> Active</span
+              >
+              <span class="text-gray-500">Last used: Today</span>
+            </div>
+          </div>
+          <div
+            class="template-card bg-white p-6 rounded-xl shadow transition duration-300"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="font-bold text-lg">Welcome Series</h3>
+                <p class="text-sm text-gray-500">Welcome</p>
+              </div>
+              <div class="flex space-x-2">
+                <button class="text-indigo-600 hover:text-indigo-800">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-red-600 hover:text-red-800">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <div class="bg-gray-100 p-4 rounded-lg mb-4">
+              <p class="text-sm font-medium mb-1">
+                Subject: Welcome to our community!
+              </p>
+              <p class="text-xs text-gray-600 truncate">
+                We're so glad you joined us! Here's a special gift to get you
+                started. Plus, learn how to make the most of your membership...
+              </p>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-green-600"
+                ><i class="fas fa-circle text-xs mr-1"></i> Active</span
+              >
+              <span class="text-gray-500">Last used: 3 days ago</span>
+            </div>
+          </div>
+
+          <div
+            class="template-card bg-white p-6 rounded-xl shadow transition duration-300"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="font-bold text-lg">Black Friday</h3>
+                <p class="text-sm text-gray-500">Promotional</p>
+              </div>
+              <div class="flex space-x-2">
+                <button class="text-indigo-600 hover:text-indigo-800">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-red-600 hover:text-red-800">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <div class="bg-gray-100 p-4 rounded-lg mb-4">
+              <p class="text-sm font-medium mb-1">
+                Subject: Black Friday Starts Now!
+              </p>
+              <p class="text-xs text-gray-600 truncate">
+                Our biggest sale of the year is here! Shop early for the best
+                deals on everything in our store. Don't miss out...
+              </p>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-yellow-600"
+                ><i class="fas fa-circle text-xs mr-1"></i> Draft</span
+              >
+              <span class="text-gray-500">Created: 1 month ago</span>
+            </div>
+          </div>
+
+          <div
+            class="template-card bg-white p-6 rounded-xl shadow transition duration-300"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="font-bold text-lg">New Feature Announcement</h3>
+                <p class="text-sm text-gray-500">Newsletter</p>
+              </div>
+              <div class="flex space-x-2">
+                <button class="text-indigo-600 hover:text-indigo-800">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-red-600 hover:text-red-800">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <div class="bg-gray-100 p-4 rounded-lg mb-4">
+              <p class="text-sm font-medium mb-1">
+                Subject: Exciting New Features!
+              </p>
+              <p class="text-xs text-gray-600 truncate">
+                We've been working hard to bring you these amazing new features.
+                Learn how they can help you be more productive...
+              </p>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-gray-600"
+                ><i class="fas fa-circle text-xs mr-1"></i> Archived</span
+              >
+              <span class="text-gray-500">Last used: 3 months ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 flex justify-between items-center">
+          <p class="text-gray-600">Showing 6 of 24 templates</p>
+          <div class="flex space-x-2">
+            <button
+              class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+            >
+              Previous
+            </button>
+            <button
+              class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="bg-white p-6 rounded-xl shadow mb-8">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">Recent Campaigns</h2>
+            <button class="text-indigo-600 hover:text-indigo-800 font-medium">
+              View All
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <app-campaings />
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

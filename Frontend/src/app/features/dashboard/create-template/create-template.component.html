@@ -1,0 +1,47 @@
+<section class="h-full">
+  <div class="border-b-4 p-4 mb-8 flex justify-between items-center">
+    <div>
+      <h3 class="text-3xl font-bold">Crear plantilla</h3>
+    </div>
+  </div>
+  <form class="h-full" [formGroup]="templateForm" (ngSubmit)="onSaveTemplate()">
+    <div class="flex flex-col mb-3">
+      <label class="mb-3" for="name">Nombre de la plantilla</label>
+      <input class="border rounded-md p-2" type="text" formControlName="name" />
+    </div>
+    <div class="flex flex-col mb-3">
+      <label class="mb-3" for="name">Asunto</label>
+      <input
+        class="border rounded-md p-2"
+        type="text"
+        formControlName="subject"
+      />
+    </div>
+    <div class="flex flex-col mb-3">
+      <label class="mb-3" for="name">Seleccionar categoria</label>
+      <select class="border rounded-md p-2" formControlName="category">
+        <option value="" disabled selected>Categoria</option>
+        <option value="promocion">Promoción</option>
+        <option value="newsletter">Newsletter</option>
+        <option value="bienvenida">Bienvenida</option>
+      </select>
+    </div>
+    <div class="flex flex-col mb-3">
+      <label class="mb-3" for="name">Mensaje</label>
+      <textarea
+        class="border rounded-md p-2 h-[200px] resize-none"
+        formControlName="message"
+      ></textarea>
+    </div>
+    <div class="flex justify-between items-center mb-3">
+      <h3 class="text-3xl font-bold">Plantilla</h3>
+      <button type="submit" class="bg-violet-400 p-4 rounded-md text-white">
+        Guardar template
+      </button>
+    </div>
+
+    <div class="h-full">
+      <div id="editor" class="h-full"></div>
+    </div>
+  </form>
+</section>

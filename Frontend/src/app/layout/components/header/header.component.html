@@ -1,0 +1,76 @@
+<header>
+  <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <a routerLink="/" class="flex-shrink-0 flex items-center">
+            <ng-icon class="text-3xl text-[#9333ea]" name="heroEnvelopeSolid" />
+            <i
+              class="fas fa-envelope-open-text text-purple-600 text-2xl mr-2"
+            ></i>
+            <span class="text-xl font-bold text-gray-900"
+              >TemplateGenerator</span
+            >
+          </a>
+        </div>
+
+        <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+          <a
+            routerLink="/auth/login"
+            class="text-gray-500 hover:text-purple-600 px-3 py-2 text-sm font-medium"
+            >Iniciar Sesión</a
+          >
+          <a
+            routerLink="/auth/register"
+            class="bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-purple-700 transition duration-300"
+            >Registrarse</a
+          >
+        </div>
+
+        <div class="-mr-2 flex items-center md:hidden">
+          <button
+            type="button"
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            id="mobile-menu-button"
+          >
+            <span class="sr-only">Abrir menú</span>
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menú móvil -->
+    <div class="hidden md:hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a
+          href="#"
+          class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-purple-600"
+          >Home</a
+        >
+        <a
+          href="#"
+          class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-purple-600"
+          >Nosotros</a
+        >
+        <a
+          href="#"
+          class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-purple-600"
+          >Servicios</a
+        >
+        <a
+          href="#"
+          class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-purple-600"
+          >Iniciar Sesión</a
+        >
+        <a
+          href="#"
+          class="block w-full text-center bg-purple-600 text-white px-4 py-2 rounded-md text-base font-medium hover:bg-purple-700 mt-2"
+          >Registrarse</a
+        >
+      </div>
+    </div>
+  </nav>
+</header>

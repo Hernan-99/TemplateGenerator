@@ -1,0 +1,53 @@
+<section class="h-full">
+  <div class="border-b-4 p-4 mb-8">
+    <h3 class="text-3xl font-bold">Cuenta</h3>
+  </div>
+  <form class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mb-20">
+    <div class="md:col-span-1">
+      <div class="flex flex-col mb-3 items-center">
+        <label class="mb-3 text-center" for="name">Imagen de perfil</label>
+        <div
+          class="w-[200px] h-[200px] rounded-full mb-3 border-2 border-dashed flex justify-center items-center bg-gray-50"
+        >
+          <span class="text-gray-400">Vista previa</span>
+        </div>
+        <input class="border rounded-md p-2" type="file" />
+      </div>
+    </div>
+    <div class="md:col-span-2 pr-0 md:pr-36">
+      <div class="flex flex-col mb-3">
+        <label class="mb-3" for="name">Nombre</label>
+        <input class="border rounded-md p-2" type="text" />
+      </div>
+      <div class="flex flex-col mb-3">
+        <label class="mb-3" for="name">Apellido</label>
+        <input class="border rounded-md p-2" type="text" />
+      </div>
+      <div class="flex flex-col mb-3">
+        <label class="mb-3" for="name">Numero</label>
+        <input class="border rounded-md p-2" type="text" />
+      </div>
+      <div class="flex flex-col mb-3">
+        <label class="mb-3" for="name">Email</label>
+        <input class="border rounded-md p-2" type="email" />
+      </div>
+      <div class="flex flex-col mb-3">
+        <label class="mb-3" for="name">Constraseña</label>
+        <input class="border rounded-md p-2" type="password" />
+      </div>
+      <div class="flex flex-col mb-3">
+        <div class="mb-8 md:mb-16">
+          <button class="bg-violet-500 p-3 rounded-md text-white mr-4">
+            Guardar cambios
+          </button>
+          <button class="bg-violet-500 p-3 rounded-md text-white">
+            Cancelar
+          </button>
+        </div>
+        <div class="flex justify-center md:justify-start">
+          <button class="underline text-red-500">Eliminar cuenta</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>

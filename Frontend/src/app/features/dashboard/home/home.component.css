@@ -1,0 +1,23 @@
+.main-content {
+  transition: margin-left 0.3s ease;
+}
+.content-expanded {
+  margin-left: 250px;
+}
+.content-collapsed {
+  margin-left: 70px;
+}
+.template-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 768px) {
+  .sidebar-expanded {
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+  }
+  .content-expanded {
+    margin-left: 0;
+  }
+}

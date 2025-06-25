@@ -1,0 +1,74 @@
+<section>
+  <article class="flex justify-between items-center mb-6 border-b-4 pb-8">
+    <h2 class="text-xl font-bold text-gray-800">Email Templates</h2>
+    <div class="flex space-x-3">
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="Search templates..."
+          class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+      </div>
+      <select
+        class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      >
+        <option>All Categories</option>
+        <option>Promotional</option>
+        <option>Newsletter</option>
+        <option>Transactional</option>
+      </select>
+    </div>
+  </article>
+
+  @if (templates.length) {
+
+  <!-- Template Card -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Template Card -->
+    @for(template of templates; track template.id){
+
+    <article
+      class="template-card bg-white p-6 rounded-xl shadow transition duration-300"
+    >
+      <div class="flex justify-between items-start mb-4">
+        <div>
+          <h3 class="font-bold text-lg">{{ template.name }}</h3>
+          <p class="text-sm text-gray-500">{{ template.category }}</p>
+        </div>
+        <div class="flex space-x-2">
+          <button
+            class="text-indigo-600 hover:text-indigo-800"
+            (click)="updateTemplate(template.id)"
+          >
+            <ng-icon name="heroPencilSquareSolid" />
+          </button>
+          <button
+            class="text-red-600 hover:text-red-800"
+            (click)="deleteTemplate(template.id)"
+          >
+            <ng-icon name="heroTrashSolid" />
+          </button>
+        </div>
+      </div>
+      <div class="bg-gray-100 p-4 rounded-lg mb-4">
+        <p class="text-sm font-medium mb-1">Subject: {{ template.subject }}</p>
+        <p class="text-xs text-gray-600 truncate">
+          {{ template.message }}
+        </p>
+      </div>
+      <div class="flex justify-between items-center text-sm">
+        <span class="text-green-600"
+          ><i class="fas fa-circle text-xs mr-1"></i> Active</span
+        >
+        <span class="text-gray-500">Last used: 2 days ago</span>
+      </div>
+    </article>
+    }
+  </div>
+  } @else{
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <h3 class="text-2xl">No hay plantillas</h3>
+  </div>
+  }
+</section>
