@@ -108,6 +108,19 @@
             >
           </a>
         </li>
+        <li
+          class="flex justify-center items-center bg-indigo-900 mb-1 mx-2 rounded-lg text-white"
+        >
+          <a
+            routerLink="/dashboard/help"
+            class="flex justify-between items-center py-3"
+          >
+            <ng-icon class="text-xl" name="heroArrowLeftOnRectangleSolid" />
+            <span class="ml-3" [ngClass]="{ hidden: !isCollapsed }"
+              >Cerrar sesion</span
+            >
+          </a>
+        </li>
       </ul>
     </div>
   </nav>

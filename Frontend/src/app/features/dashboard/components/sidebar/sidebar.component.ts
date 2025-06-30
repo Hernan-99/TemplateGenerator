@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
+  heroArrowLeftOnRectangleSolid,
   heroBars4Solid,
   heroBookmarkSolid,
   heroCog6ToothSolid,
@@ -37,6 +38,7 @@ import {
       heroUserCircleSolid,
       heroXMarkSolid,
       heroBookmarkSolid,
+      heroArrowLeftOnRectangleSolid
     }),
   ],
 })
