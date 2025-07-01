@@ -8,8 +8,6 @@ const credentials = require("./middlewares/credentials.js");
 
 const cookieParser = require("cookie-parser");
 
-const PORT = process.env.PORT || 8080;
-
 app.use(credentials);
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
@@ -26,6 +24,10 @@ app.use("/logout", require("./routes/logout.js"));
 app.use(verifyJWT);
 app.use("/templates", require("./routes/api/templates.js"));
 
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el localhost:${PORT}`);
-});
+// const PORT = process.env.PORT || 8080;
+// app.listen(PORT, () => {
+//   console.log(`Servidor corriendo en el localhost:${PORT}`);
+// });
+
+// Exporta el handler como función serverless
+module.exports = serverless(app);
