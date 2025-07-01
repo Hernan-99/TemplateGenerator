@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions.config.js");
-const serverless = require("serverless-http");
 
 const verifyJWT = require("./middlewares/jwt.middleware.js");
 const credentials = require("./middlewares/credentials.js");
@@ -35,4 +34,5 @@ app.use("/templates", require("./routes/api/templates.js"));
 // });
 
 // Exporta el handler como función serverless
+const serverless = require("serverless-http");
 module.exports = serverless(app);
