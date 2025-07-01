@@ -1,6 +1,6 @@
 const allowedOrigins = [
   "https://templategenerator-frontend.netlify.app", // netlify
-  "http://192.168.0.15:4200", // angular
+  "https://template-generator-api.vercel.app/", // angular
   "http://localhost:4200", // angular
 ];
 
