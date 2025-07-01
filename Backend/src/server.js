@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions.config.js");
+const PORT = process.env.PORT || 8080;
 
 const verifyJWT = require("./middlewares/jwt.middleware.js");
 const credentials = require("./middlewares/credentials.js");
@@ -28,11 +29,6 @@ app.use("/logout", require("./routes/logout.js"));
 app.use(verifyJWT);
 app.use("/templates", require("./routes/api/templates.js"));
 
-// const PORT = process.env.PORT || 8080;
-// app.listen(PORT, () => {
-//   console.log(`Servidor corriendo en el localhost:${PORT}`);
-// });
-
-// Exporta el handler como función serverless
-const serverless = require("serverless-http");
-module.exports = serverless(app);
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en el localhost:${PORT}`);
+});
