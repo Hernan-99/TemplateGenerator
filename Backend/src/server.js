@@ -15,6 +15,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/", (req, res) => {
+  res.send("API corriendo");
+});
+
 // autenticacion
 // app.use("/", require("./routes/register.js"));
 app.use("/register", require("./routes/register.js"));
