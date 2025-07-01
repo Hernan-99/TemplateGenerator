@@ -1,7 +1,6 @@
 [build]
-  base = "."
   command = "cd Frontend && npm install && npm run build -- --configuration=production"
-  publish = "Frontend/dist/frontend"
+  publish = "Frontend/dist/frontend/browser"
 
 [[redirects]]
   from = "/*"
