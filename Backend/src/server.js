@@ -1,4 +1,5 @@
 const express = require("express");
+const serverless = require("serverless-http");
 const app = express();
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions.config.js");
@@ -31,11 +32,13 @@ app.use("/templates", require("./routes/api/templates.js"));
 // conexion a la db y levantar servidor | IIFE
 (async () => {
   try {
-    initDB();
-    app.listen(PORT, () => {
-      console.log(`Servidor corriendo en el localhost:${PORT}`);
-    });
+    await initDB();
+    // app.listen(PORT, () => {
+    //   console.log(`Servidor corriendo en el localhost:${PORT}`);
+    // });
   } catch (err) {
     console.error("❌ Falló la inicialización de la app:", err);
   }
 })();
+
+module.exports = serverless(app);
