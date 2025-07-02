@@ -33,8 +33,8 @@ const createUser = async (req, res) => {
     });
 
     res.status(201).json({ success: `Usuario ${email} creado correctamente` });
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Internal Server Error 500" });
   }
 };
