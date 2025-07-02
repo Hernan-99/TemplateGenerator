@@ -105,25 +105,14 @@ const updateTemplate = async (req, res) => {
 const deleteTemplate = async (req, res) => {
   const { id } = req.params;
   const email = req.email;
-
-  const template = templateModel.templates.find(
-    (temp) => temp.id === parseInt(id) && temp.userEmail === email
-  );
-
-  if (!template)
-    return res.status(404).json({ message: "Template no encontrado" });
-
-  const filteredArr = templateModel.templates.filter(
-    (temp) => temp.id !== parseInt(id)
-  );
-
-  templateModel.setTemplates([...filteredArr]);
-
   try {
-    await fsPromise.writeFile(
-      path.join(__dirname, "..", "models", "templates.json"),
-      JSON.stringify(templateModel.templates)
-    );
+    const template = Template.findOne({ where: { id, userEmail: email } });
+    if (!template)
+      return res.status(404).json({
+        message: `Template con el ${id} no encontrado`,
+      });
+
+    await template.destroy();
     res.json({ message: "Template eliminado correctamente" });
   } catch (err) {
     console.error("Error al eliminar:", err);
