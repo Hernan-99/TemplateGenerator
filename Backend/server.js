@@ -45,7 +45,6 @@ app.use("/templates", require("./src/routes/api/templates.js"));
     // });
   } catch (err) {
     console.error("❌ Falló la inicialización de la app:", err);
-    process.exit(1); // Termina el proceso si la DB no se puede inicializar
   }
 })();
 
