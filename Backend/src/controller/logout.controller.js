@@ -1,4 +1,3 @@
-const { where } = require("sequelize");
 const User = require("../models/user.model.js"); // Modelo e
 
 // const userModel = {
@@ -15,7 +14,7 @@ const logout = async (req, res) => {
   const refreshToken = cookies.jwt;
 
   try {
-    const findUser = User.findOne({ where: { refreshToken } });
+    const findUser = await User.findOne({ where: { refreshToken } });
 
     if (!findUser) {
       // Usuario no encontrado, limpiamos igual la cookie

@@ -11,7 +11,6 @@ const bcrypt = require("bcrypt");
 
 const createUser = async (req, res) => {
   const { email, firstname, lastname, password } = req.body;
-
   if (!email || !firstname || !lastname || !password) {
     return res.status(400).json({ message: "Todos los campos son requeridos" });
   }

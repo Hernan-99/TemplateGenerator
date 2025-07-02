@@ -18,8 +18,9 @@ const authLogin = async (req, res) => {
     return res.status(400).json({ message: "Todos los campos son requeridos" });
 
   try {
-    const findUser = User.findOne({ where: email });
-    if (!findUser) return res.sendStatus(401); // No autorizado
+    const findUser = await User.findOne({ where: { email } });
+    if (!findUser)
+      return res.status(401).json({ message: "Usuario no encontrado" }); // No encontrado
     console.log("Usuario buscado:", findUser);
 
     const matchPass = await bcrypt.compare(password, findUser.password);

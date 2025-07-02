@@ -11,7 +11,7 @@ require("dotenv").config();
 //   },
 // };
 
-const handlerRefreshToken = (req, res) => {
+const handlerRefreshToken = async (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401);
   console.log(cookies.jwt);
@@ -19,7 +19,7 @@ const handlerRefreshToken = (req, res) => {
   const refreshToken = cookies.jwt;
 
   try {
-    const findUser = User.findOne({ where: { refreshToken } });
+    const findUser = await User.findOne({ where: { refreshToken } });
     if (!findUser) return res.sendStatus(403); // Token no coincide con ningún usuario
 
     jwt.verify(
