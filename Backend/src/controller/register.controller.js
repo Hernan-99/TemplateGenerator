@@ -1,4 +1,4 @@
-const User = require("../models/user.model.js");
+const User = require("../models/user.model.js"); // Modelo Sequelize
 const bcrypt = require("bcrypt");
 // const fsPromise = require("node:fs/promises");
 // const path = require("node:path");
