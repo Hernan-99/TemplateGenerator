@@ -1,4 +1,5 @@
 require("dotenv").config(); // Carga  variables de entorno del archivo `.env` (`DB_NAME`, `DB_USER`, etc.). Es para no tener datos sensibles en el código fuente.
+const pg = require("pg");
 const { Sequelize } = require("sequelize"); // Importacion del constructor Sequelize desde el ORM Sequelize. Es para instanciar una conexión a la base de datos.
 
 // Inicializa Sequelize con los datos de conexión:
@@ -10,6 +11,7 @@ const conecction = new Sequelize(
     host: process.env.DB_HOST, // Dirección del host
     port: process.env.DB_PORT || 5432, // Puerto de PostgreSQL (por default 5432)
     dialect: "postgres", // El tipo de base de datos que usamos(postgres)
+    dialectModule: pg,
 
     // Esto le indica a Sequelize que:
     dialectOptions: {
