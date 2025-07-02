@@ -2,14 +2,14 @@ const express = require("express");
 const serverless = require("serverless-http");
 const app = express();
 const cors = require("cors");
-const corsOptions = require("./src/config/corsOptions.config.js");
+const corsOptions = require("./config/corsOptions.config.js");
 // const PORT = process.env.PORT || 8080;
 
-const verifyJWT = require("./src/middlewares/jwt.middleware.js");
-const credentials = require("./src/middlewares/credentials.js");
+const verifyJWT = require("./middlewares/jwt.middleware.js");
+const credentials = require("./middlewares/credentials.js");
 
 const cookieParser = require("cookie-parser");
-const initDB = require("./src/config/initDB.js");
+const initDB = require("./config/initDB.js");
 
 // Middlewares
 app.use(credentials);
@@ -26,14 +26,14 @@ app.get("/", (req, res) => {
   console.log("hola");
 });
 // app.use("/", require("./routes/register.js"));
-app.use("/register", require("./src/routes/register.js"));
-app.use("/auth", require("./src/routes/auth.js"));
-app.use("/refresh", require("./src/routes/refresh.js"));
-app.use("/logout", require("./src/routes/logout.js"));
+app.use("/register", require("./routes/register.js"));
+app.use("/auth", require("./routes/auth.js"));
+app.use("/refresh", require("./routes/refresh.js"));
+app.use("/logout", require("./routes/logout.js"));
 
 // Middleware para proteger rutas privadas
 app.use(verifyJWT);
-app.use("/templates", require("./src/routes/api/templates.js"));
+app.use("/templates", require("./routes/api/templates.js"));
 
 // conexion a la db y levantar servidor | IIFE
 (async () => {
