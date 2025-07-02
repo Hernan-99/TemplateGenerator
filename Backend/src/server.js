@@ -33,11 +33,13 @@ app.use("/templates", require("./routes/api/templates.js"));
 (async () => {
   try {
     await initDB();
+    console.log("✅ Base de datos inicializada");
     // app.listen(PORT, () => {
     //   console.log(`Servidor corriendo en el localhost:${PORT}`);
     // });
   } catch (err) {
     console.error("❌ Falló la inicialización de la app:", err);
+    process.exit(1); // Termina el proceso si la DB no se puede inicializar
   }
 })();
 
