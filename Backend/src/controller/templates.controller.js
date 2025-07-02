@@ -39,26 +39,14 @@ const getTemplateById = async (req, res) => {
 
 // feature futura
 const getTemplateByStatus = async (req, res) => {}; // para filtrar por templates segun su estado (active | review | pause)
-// En tu backend (Node/Express):
 // app.get('/api/active-templates', (req, res) => {
 //   const templates = require('./templates.json');
 //   const activeTemplates = templates.filter(t => t.status === 'active');
 //   res.json({ count: activeTemplates.length });
 // });
-const createTemplate = async (req, res) => {
-  const newTemplate = {
-    id:
-      templateModel.templates.length > 0
-        ? templateModel.templates[templateModel.templates.length - 1].id + 1
-        : 1,
-    name: req.body.name,
-    subject: req.body.subject,
-    category: req.body.category,
-    message: req.body.message,
-    html: req.body.html,
-    userEmail: req.email, // <- Asocio el template con el usuario autenticado
-  };
 
+const createTemplate = async (req, res) => {
+  const { name, subject, category, message, html } = req.body;
   if (
     !newTemplate.name ||
     !newTemplate.subject ||
@@ -68,57 +56,48 @@ const createTemplate = async (req, res) => {
   )
     return res.status(400).json({ message: "Todos los campos son requeridos" });
 
-  templateModel.setTemplates([...templateModel.templates, newTemplate]);
-
   try {
-    await fsPromise.writeFile(
-      path.join(__dirname, "..", "models", "templates.json"),
-      JSON.stringify(templateModel.templates)
-    );
-    console.log(templateModel.templates);
-    res.status(201).json({ success: `Template creado correctamente` });
+    const newTemplate = await Template.create({
+      // id: se genera automáticamente como UUID v4
+      name,
+      subject,
+      category,
+      message,
+      html,
+      userEmail: req.email, // <- Asocio el template con el usuario autenticado
+    });
+    res.status(201).json({
+      message: "Template creado correctamente",
+      template: newTemplate,
+    });
   } catch (err) {
-    console.error("Error al guardar:", err);
+    console.error("❌ Error al crear template:", err);
     res.status(500).json({ message: "Error interno del servidor" });
   }
 };
 
 const updateTemplate = async (req, res) => {
   const { name, subject, category, message, html } = req.body;
-  const email = req.email;
   const { id } = req.params;
-  const template = templateModel.templates.find(
-    (temp) => temp.id === parseInt(id) && temp.userEmail === email
-  );
-
-  if (!template)
-    return res.status(400).json({
-      message: `Template no encontrado`,
-    });
-
-  if (name) template.name = name;
-  if (subject) template.subject = subject;
-  if (category) template.category = category;
-  if (message) template.message = message;
-  if (html) template.html = html;
-
-  const filteredArr = templateModel.templates.filter(
-    (temp) => temp.id !== parseInt(id)
-  );
-
-  const updatedTemplates = [...filteredArr, template].sort(
-    (a, b) => a.id - b.id
-  );
-  templateModel.setTemplates(updatedTemplates);
+  const email = req.email;
 
   try {
-    await fsPromise.writeFile(
-      path.join(__dirname, "..", "models", "templates.json"),
-      JSON.stringify(templateModel.templates)
-    );
+    const template = Template.findOne({ where: { id, userEmail: email } });
+    if (!template)
+      return res.status(404).json({
+        message: `Template con el ${id} no encontrado`,
+      });
+
+    template.name = name || template.name;
+    template.subject = subject || template.subject;
+    template.category = category || template.category;
+    template.message = message || template.message;
+    template.html = html || template.html;
+
+    await template.save();
     res.json({ message: "Template actualizado correctamente", template });
   } catch (err) {
-    console.error("Error al actualizar:", err);
+    console.error("❌ Error al actualizar template:", err);
     res.status(500).json({ message: "Error interno del servidor" });
   }
 };
