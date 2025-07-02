@@ -19,6 +19,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 // autenticacion - rutas públicas
+app.get("/", (req, res) => {
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  res.statusCode = 200;
+  res.end("<h1>Bienvenido</h1>");
+  console.log("hola");
+});
 // app.use("/", require("./routes/register.js"));
 app.use("/register", require("./src/routes/register.js"));
 app.use("/auth", require("./src/routes/auth.js"));
