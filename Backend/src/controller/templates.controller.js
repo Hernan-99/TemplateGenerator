@@ -1,34 +1,43 @@
-const fsPromise = require("node:fs/promises");
-const path = require("node:path");
-
-const templateModel = {
-  templates: require("../models/templates.json"),
-  setTemplates: function (data) {
-    this.templates = data;
-  },
-};
+const Template = require("../models/template.model.js");
+// const fsPromise = require("node:fs/promises");
+// const path = require("node:path");
+// const templateModel = {
+//   templates: require("../models/templates.json"),
+//   setTemplates: function (data) {
+//     this.templates = data;
+//   },
+// };
 
 const getAllTemplates = async (req, res) => {
-  const userTemplates = templateModel.templates.filter(
-    (temp) => temp.userEmail === req.email
-  );
-  res.json(userTemplates);
+  const email = req.email;
+  try {
+    const templates = await Template.findAll({
+      where: { userEmail: email },
+    });
+    res.json(templates);
+  } catch (err) {
+    console.error("❌ Error al obtener templates:", err);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
 };
 
 const getTemplateById = async (req, res) => {
-  const template = templateModel.templates.find(
-    // (temp) => temp.id === parseInt(req.params.id)
-    (temp) =>
-      temp.id === parseInt(req.params.id) && temp.userEmail === req.email
-  );
-
-  if (!template)
-    return res.status(400).json({
-      message: `Error al obtener el template con id ${req.params.id}`,
-    });
-  res.json(template);
+  const { id } = req.params;
+  const email = req.email;
+  try {
+    const template = Template.findOne({ where: { id, userEmail: email } });
+    if (!template)
+      return res.status(400).json({
+        message: `Error al obtener el template con id ${id}`,
+      });
+    res.json(template);
+  } catch (err) {
+    console.error("❌ Error al obtener template por ID:", err);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
 };
 
+// feature futura
 const getTemplateByStatus = async (req, res) => {}; // para filtrar por templates segun su estado (active | review | pause)
 // En tu backend (Node/Express):
 // app.get('/api/active-templates', (req, res) => {
