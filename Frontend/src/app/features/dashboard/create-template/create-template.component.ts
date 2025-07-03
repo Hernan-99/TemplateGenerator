@@ -87,14 +87,15 @@ export class CreateTemplateComponent implements OnInit {
         };
 
         console.log('Template a guardar:', finalTemplate);
-        // aquí harías un POST a tu API
+        //  POST a la API
         this.createTemplateSv.saveTemplate(finalTemplate).subscribe({
           next: (res) => {
             console.log('Template guardado con éxito', res);
-            // Podés hacer un redirect o mostrar un mensaje
+            alert('Template guradado');
           },
           error: (err) => {
             console.error('Error al guardar template', err);
+            alert('Error al guardar template');
           },
         });
       },
