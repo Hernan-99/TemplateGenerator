@@ -1,3 +1,7 @@
 .bg-login {
   background-image: linear-gradient(to right, #4f46e5, #7c3aed);
 }
+
+small {
+  color: rgb(255, 81, 81);
+}
