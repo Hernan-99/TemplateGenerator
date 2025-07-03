@@ -3,7 +3,7 @@ const serverless = require("serverless-http");
 const app = express();
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions.config.js");
-// const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 
 const verifyJWT = require("./middlewares/jwt.middleware.js");
 const credentials = require("./middlewares/credentials.js");
@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.statusCode = 200;
   res.end("<h1>Bienvenido</h1>");
-  console.log("hola");
+  console.log("success");
 });
 // app.use("/", require("./routes/register.js"));
 app.use("/register", require("./routes/register.js"));
@@ -34,15 +34,16 @@ app.use("/logout", require("./routes/logout.js"));
 // Middleware para proteger rutas privadas
 app.use(verifyJWT);
 app.use("/templates", require("./routes/api/templates.js"));
+app.use("/account", require("./routes/api/users.js"));
 
 // conexion a la db y levantar servidor | IIFE
 (async () => {
   try {
     await initDB();
     console.log("✅ Base de datos inicializada");
-    // app.listen(PORT, () => {
-    //   console.log(`Servidor corriendo en el localhost:${PORT}`);
-    // });
+    app.listen(PORT, () => {
+      console.log(`Servidor corriendo en el localhost:${PORT}`);
+    });
   } catch (err) {
     console.error("❌ Falló la inicialización de la app:", err);
   }
