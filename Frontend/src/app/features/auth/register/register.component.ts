@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   FormBuilder,
@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { RegisterService } from './register.service';
 import { CommonModule } from '@angular/common';
+import { RegisterRequest } from '../../../models/auth.model';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -16,15 +17,15 @@ import { CommonModule } from '@angular/common';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  registerForm: FormGroup;
-  isLoading: boolean = false;
-  errorMessage: string | null = null;
+  private fb = inject(FormBuilder);
+  private registerSv = inject(RegisterService);
+  private router = inject(Router);
 
-  constructor(
-    private fb: FormBuilder,
-    private registerSv: RegisterService,
-    private router: Router
-  ) {
+  registerForm: FormGroup;
+  isLoading = signal(false);
+  errorMessage = signal<string | null>(null);
+
+  constructor() {
     this.registerForm = this.fb.group({
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
@@ -38,24 +39,26 @@ export class RegisterComponent {
       this.markAllAsTouched();
       return;
     }
-    this.isLoading = true;
-    this.errorMessage = null;
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
 
-    const { firstname, lastname, email, password } = this.registerForm.value;
-    this.registerSv.register(firstname, lastname, email, password).subscribe({
+    const user: RegisterRequest = this.registerForm.value;
+
+    this.registerSv.register(user).subscribe({
       next: (res) => {
         console.log('Register res: ', res);
         this.router.navigate(['/auth/login']);
       },
       error: (error: { message: string }) => {
-        this.isLoading = false;
-        this.errorMessage =
+        this.isLoading.set(false);
+        this.errorMessage.set(
           error.message ||
-          'Error al registrarse. Por favor, intenta nuevamente.';
+            'Error al registrarse. Por favor, intenta nuevamente.'
+        );
         console.log('Register error: ', error);
       },
       complete: () => {
-        this.isLoading = false;
+        this.isLoading.set(false);
       },
     });
   }
