@@ -18,12 +18,22 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     role: {
-      type: DataTypes.JSON,
+      // 5150 (Admin) o 2001 (User)
+      type: DataTypes.INTEGER,
+      defaultValue: 2001, // Por defecto: User
     },
     refreshToken: {
       type: DataTypes.TEXT,
