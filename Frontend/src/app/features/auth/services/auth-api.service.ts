@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
-import { Users, AuthResponse, RegisterRequest } from '../models/users.model';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthResponse, RegisterRequest } from '../../../models/auth.model';
+import { LoginRequest } from '../../../models/auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,13 +11,10 @@ export class AuthApiService {
   private readonly baseUrl = 'http://localhost:8080'; // backend
   private readonly TOKEN_KEY = 'accessToken';
   private readonly REFRESH_TOKEN_KEY = 'refreshToken';
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
-
-  login(user: Users): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/auth`, user, {
-      withCredentials: true, // Importante para manejar cookies
-    });
+  login(credentials: LoginRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/auth`, credentials);
   }
 
   register(user: RegisterRequest): Observable<{ message: string }> {
@@ -40,8 +38,8 @@ export class AuthApiService {
       const payload = JSON.parse(atob(token.split('.')[1]));
       const now = Math.floor(Date.now() / 1000);
       return payload.exp < now;
-    } catch (e) {
-      return true; // Si no se puede parsear, lo tomamos como expirado
+    } catch (err) {
+      return true; // Si no se puede parsear === expirado
     }
   }
 
