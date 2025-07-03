@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { Category, Template } from '../models/template';
+import { Category, Template } from '../../../models/template.model';
 import {
   heroPencilSquareSolid,
   heroTrashSolid,
 } from '@ng-icons/heroicons/solid';
 import { TemplateService } from './templates.services';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-templates',
   standalone: true,
-  imports: [NgIcon],
+  imports: [NgIcon, CommonModule],
   templateUrl: './templates.component.html',
   styleUrl: './templates.component.css',
   viewProviders: [provideIcons({ heroTrashSolid, heroPencilSquareSolid })],
@@ -55,7 +56,7 @@ export class TemplatesComponent implements OnInit {
       html: newHtml ?? current.html,
     };
 
-    this.templateSv.updateTemplate(id, updatedData).subscribe({ // <-- esto sigue dando error. Argument of type 'Partial<Template>' is not assignable to parameter of type 'Template'. Types of property 'id' are incompatible. Type 'number | undefined' is not assignable to type 'number'. Type 'undefined' is not assignable to type 'number'.
+    this.templateSv.updateTemplate(id, updatedData).subscribe({
       next: (res) => {
         const updatedTemplate = res.template;
         const index = this.templates.findIndex((t) => t.id === id);
@@ -74,7 +75,7 @@ export class TemplatesComponent implements OnInit {
     if (!confirm('¿Estás seguro de eliminar esta plantilla?')) return;
     this.templateSv.deleteTemplate(id).subscribe({
       next: () => {
-        // Actualizamos la lista luego del borrado exitoso
+        // Actualizamos la lista despues de borrar
         this.templates = this.templates.filter((t) => t.id !== id);
       },
       error: (error) => console.log('Error al eliminar la plantilla', error),
