@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -18,13 +18,12 @@ declare const unlayer: any;
   styleUrl: './create-template.component.css',
 })
 export class CreateTemplateComponent implements OnInit {
+  private fb = inject(FormBuilder);
+  private createTemplateSv = inject(CreateTemplateService);
   templateForm!: FormGroup;
   unlayerLoaded = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private createTemplateService: CreateTemplateService
-  ) {
+  constructor() {
     this.templateForm = this.fb.group({
       name: ['', Validators.required],
       subject: ['', Validators.required],
@@ -89,7 +88,7 @@ export class CreateTemplateComponent implements OnInit {
 
         console.log('Template a guardar:', finalTemplate);
         // aquí harías un POST a tu API
-        this.createTemplateService.saveTemplate(finalTemplate).subscribe({
+        this.createTemplateSv.saveTemplate(finalTemplate).subscribe({
           next: (res) => {
             console.log('Template guardado con éxito', res);
             // Podés hacer un redirect o mostrar un mensaje
@@ -103,5 +102,29 @@ export class CreateTemplateComponent implements OnInit {
         console.error('Error al exportar HTML:', err);
       }
     );
+  }
+
+  downloadTemplate() {
+    if (!this.unlayerLoaded) {
+      console.error('Unlayer no está cargado todavía');
+      return;
+    }
+
+    unlayer.exportHtml((data: any) => {
+      if (!data || !data.html) {
+        console.error('No se pudo exportar el HTML de Unlayer');
+        return;
+      }
+
+      const blob = new Blob([data.html], { type: 'text/html' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+
+      a.href = url;
+      a.download = `${this.templateForm.get('name')?.value || 'template'}.html`;
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+    });
   }
 }
