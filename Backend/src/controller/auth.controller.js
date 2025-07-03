@@ -3,15 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-// const path = require("node:path");
-// const fsPromise = require("node:fs/promises");
-// const userModel = {
-//   users: require("../models/users.json"),
-//   setUsers: function (data) {
-//     this.users = data;
-//   },
-// };
-
 const authLogin = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -51,10 +42,17 @@ const authLogin = async (req, res) => {
 
     // Enviar cookie httpOnly + accessToken
     res.cookie("jwt", refreshToken, {
+      // para produccion
+      // httpOnly: true,
+      // sameSite: "None",
+      // secure: true,
+      // maxAge: 24 * 60 * 60 * 1000, // 1 día
+
+      // para desarrollo
       httpOnly: true,
-      sameSite: "None",
-      secure: true,
-      maxAge: 24 * 60 * 60 * 1000, // 1 día
+      sameSite: "Lax", // o incluso "Strict" si no usás subdominios o cross-site
+      secure: false, // porque no usás HTTPS localmente
+      maxAge: 24 * 60 * 60 * 1000,
     });
     res.json({ accessToken });
   } catch (err) {

@@ -1,12 +1,5 @@
 const User = require("../models/user.model.js"); // Modelo e
 
-// const userModel = {
-//   users: require("../models/users.json"),
-//   setUsers: function (data) {
-//     this.users = data;
-//   },
-// };
-
 const logout = async (req, res) => {
   const cookies = req.cookies;
 
@@ -33,9 +26,16 @@ const logout = async (req, res) => {
     );
     // agregar en produccion --> {secure:true, maxAge: 24 * 60 * 60 * 1000}
     res.clearCookie("jwt", {
+      // para produccion
+      // httpOnly: true,
+      // sameSite: "None",
+      // secure: true,
+      // maxAge: 24 * 60 * 60 * 1000,
+
+      // en desarrollo
       httpOnly: true,
-      sameSite: "None",
-      secure: true,
+      sameSite: "Lax",
+      secure: false, 
       maxAge: 24 * 60 * 60 * 1000,
     });
 

@@ -1,16 +1,9 @@
 const User = require("../models/user.model.js"); // Modelo Sequelize
 const bcrypt = require("bcrypt");
-// const fsPromise = require("node:fs/promises");
-// const path = require("node:path");
-// const userModel = {
-//   users: require("../models/users.json"),
-//   setUsers: function (data) {
-//     this.users = data;
-//   },
-// };
+const ROLE_LIST = require("../config/role.list.js");
 
 const createUser = async (req, res) => {
-  const { email, firstname, lastname, password } = req.body;
+  const { firstname, lastname, email, phone, image, password } = req.body;
   if (!email || !firstname || !lastname || !password) {
     return res.status(400).json({ message: "Todos los campos son requeridos" });
   }
@@ -24,11 +17,13 @@ const createUser = async (req, res) => {
     // Hash contraseña
     const hashPass = await bcrypt.hash(password, 10);
     await User.create({
-      email,
       firstname,
       lastname,
+      email,
+      phone: phone || null,
+      image: image || null,
       password: hashPass,
-      role: { UserRol: 2001 },
+      role: ROLE_LIST.User,
     });
 
     res.status(201).json({ success: `Usuario ${email} creado correctamente` });

@@ -1,12 +1,4 @@
 const Template = require("../models/template.model.js");
-// const fsPromise = require("node:fs/promises");
-// const path = require("node:path");
-// const templateModel = {
-//   templates: require("../models/templates.json"),
-//   setTemplates: function (data) {
-//     this.templates = data;
-//   },
-// };
 
 const getAllTemplates = async (req, res) => {
   const email = req.email;
@@ -25,7 +17,9 @@ const getTemplateById = async (req, res) => {
   const { id } = req.params;
   const email = req.email;
   try {
-    const template = await Template.findOne({ where: { id, userEmail: email } });
+    const template = await Template.findOne({
+      where: { id, userEmail: email },
+    });
     if (!template)
       return res.status(400).json({
         message: `Error al obtener el template con id ${id}`,
@@ -47,13 +41,7 @@ const getTemplateByStatus = async (req, res) => {}; // para filtrar por template
 
 const createTemplate = async (req, res) => {
   const { name, subject, category, message, html } = req.body;
-  if (
-    !newTemplate.name ||
-    !newTemplate.subject ||
-    !newTemplate.message ||
-    !newTemplate.category ||
-    !newTemplate.html
-  )
+  if (!name || !subject || !message || !category || !html)
     return res.status(400).json({ message: "Todos los campos son requeridos" });
 
   try {
@@ -82,7 +70,9 @@ const updateTemplate = async (req, res) => {
   const email = req.email;
 
   try {
-    const template = await Template.findOne({ where: { id, userEmail: email } });
+    const template = await Template.findOne({
+      where: { id, userEmail: email },
+    });
     if (!template)
       return res.status(404).json({
         message: `Template con el ${id} no encontrado`,
@@ -106,7 +96,9 @@ const deleteTemplate = async (req, res) => {
   const { id } = req.params;
   const email = req.email;
   try {
-    const template = await Template.findOne({ where: { id, userEmail: email } });
+    const template = await Template.findOne({
+      where: { id, userEmail: email },
+    });
     if (!template)
       return res.status(404).json({
         message: `Template con el ${id} no encontrado`,

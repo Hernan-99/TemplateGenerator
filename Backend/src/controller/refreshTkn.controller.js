@@ -2,15 +2,6 @@ const User = require("../models/user.model.js");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-// const fs = require("node:fs");
-// const path = require("node:path");
-// const userModel = {
-//   users: require("../models/users.json"),
-//   setUsers: function (data) {
-//     this.users = data;
-//   },
-// };
-
 const handlerRefreshToken = async (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401);
