@@ -1,15 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Template } from '../models/template';
+import { inject, Injectable } from '@angular/core';
+import { Template } from '../../../models/template.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TemplateApiService {
-  private readonly baseUrl = 'http://localhost:8080'; // tu backend
-
-  constructor(private http: HttpClient) {}
+  private readonly baseUrl = 'http://localhost:8080'; // backend
+  private http = inject(HttpClient);
 
   createTemplate(template: Template): Observable<{ message: string }> {
     return this.http.post<{ message: string }>(
@@ -17,7 +16,6 @@ export class TemplateApiService {
       template
     );
   }
-  // Podés agregar luego: getTemplates(), getById(), update(), delete(), etc.
 
   getUserTemplates(): Observable<Template[]> {
     return this.http.get<Template[]>(`${this.baseUrl}/templates`);
@@ -30,7 +28,7 @@ export class TemplateApiService {
   updateTemplate(
     id: number,
     updateTemp: Partial<Template>
-  ): Observable<{ message: string; template: Template }> { // si el backend responde así
+  ): Observable<{ message: string; template: Template }> {
     return this.http.put<{ message: string; template: Template }>(
       `${this.baseUrl}/templates/${id}`,
       updateTemp
