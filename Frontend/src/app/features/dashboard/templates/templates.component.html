@@ -1,7 +1,7 @@
 <section>
-  <article class="flex justify-between items-center mb-6 border-b-4 pb-8">
+  <article class="flex justify-between items-center mb-6 border-b-4 p-8">
     <h2 class="text-xl font-bold text-gray-800">Email Templates</h2>
-    <div class="flex space-x-3">
+    <!-- <div class="flex space-x-3">
       <div class="relative">
         <input
           type="text"
@@ -18,13 +18,13 @@
         <option>Newsletter</option>
         <option>Transactional</option>
       </select>
-    </div>
+    </div> -->
   </article>
 
   @if (templates.length) {
 
   <!-- Template Card -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-8 gap-6">
     <!-- Template Card -->
     @for(template of templates; track template.id){
 
@@ -59,9 +59,11 @@
       </div>
       <div class="flex justify-between items-center text-sm">
         <span class="text-green-600"
-          ><i class="fas fa-circle text-xs mr-1"></i> Active</span
+          ><i class="fas fa-circle text-xs mr-1"></i> Activa</span
         >
-        <span class="text-gray-500">Last used: 2 days ago</span>
+        <span class="text-gray-500"
+          >Creado: {{ template?.createdAt | date : "dd/MM/yyyy HH:mm" }}</span
+        >
       </div>
     </article>
     }
