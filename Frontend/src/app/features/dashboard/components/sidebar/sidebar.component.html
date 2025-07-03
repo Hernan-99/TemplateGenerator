@@ -22,15 +22,27 @@
 
   <!-- User Profile -->
   <div class="p-4 flex items-center border-b border-indigo-700">
+    @if (user()) {
     <img
-      src="https://randomuser.me/api/portraits/women/44.jpg"
+      [src]="user()?.image || 'https://randomuser.me/api/portraits/lego/1.jpg'"
       alt="User"
       class="w-10 h-10 rounded-full mr-3"
     />
     <div [ngClass]="{ hidden: !isCollapsed }">
-      <p class="font-medium">Sarah Johnson</p>
+      <p class="font-medium">{{ user()?.firstname }} {{ user()?.lastname }}</p>
       <p class="text-xs text-indigo-300">Marketing Manager</p>
     </div>
+    } @else {
+    <img
+      src="https://randomuser.me/api/portraits/lego/1.jpg"
+      alt="Default avatar"
+      class="w-10 h-10 rounded-full mr-3"
+    />
+    <div [ngClass]="{ hidden: !isCollapsed }">
+      <p class="font-medium">Cargando...</p>
+      <p class="text-xs text-indigo-300">Marketing Manager</p>
+    </div>
+    }
   </div>
 
   <!-- Nav -->
@@ -112,8 +124,8 @@
           class="flex justify-center items-center bg-indigo-900 mb-1 mx-2 rounded-lg text-white"
         >
           <a
-            routerLink="/dashboard/help"
-            class="flex justify-between items-center py-3"
+            class="flex justify-between items-center py-3 cursor-pointer"
+            (click)="logout()"
           >
             <ng-icon class="text-xl" name="heroArrowLeftOnRectangleSolid" />
             <span class="ml-3" [ngClass]="{ hidden: !isCollapsed }"

@@ -1,15 +1,11 @@
 <article class="bg-white p-6 rounded-xl shadow">
-  @for(template of templates; track template.id){
-
   <div class="flex items-center justify-between">
     <div>
       <p class="text-gray-500">{{ title }}</p>
       <h3 class="text-3xl font-bold mt-2">{{ templates.length }}</h3>
     </div>
     <div class="bg-indigo-100 p-3 rounded-full">
-      <ng-icon class="text-2xl" name="icon" />
-      <i class="fas fa-envelope text-indigo-600 text-xl"></i>
+      <ng-icon class="text-2xl" name="{{ icon }}" />
     </div>
   </div>
-  }
 </article>

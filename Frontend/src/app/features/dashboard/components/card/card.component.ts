@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import { CardService } from './card.service';
-import { Template } from '../../models/template';
+import { Template } from '../../../../models/template.model';
 
 @Component({
   selector: 'app-card',
@@ -11,9 +11,11 @@ import { Template } from '../../models/template';
   styleUrl: './card.component.css',
 })
 export class CardComponent implements OnInit {
-  templates: Template[] = [];
-  @Input() title: string = '';
+  @Input() title!: string;
+  @Input() templates: Template[] = []; 
   @Input() icon: string = '';
+  // templates: Template[] = [];
+  // @Input() title: string = '';
 
   constructor(private cardSv: CardService) {}
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Template } from '../../models/template';
+import { Template } from '../../../../models/template.model';
 import { TemplateApiService } from '../../services/template-api.service';
 
 @Component({
