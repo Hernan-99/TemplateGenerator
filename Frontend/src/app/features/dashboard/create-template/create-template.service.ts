@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TemplateApiService } from '../services/template-api.service';
-import { Template } from '../models/template';
+import { Template } from '../../../models/template.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
