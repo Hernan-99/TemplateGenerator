@@ -1,7 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { HeroComponent } from '../../shared/hero/hero.component';
-import { CardComponent } from '../../shared/card/card.component';
-import { JumbotronComponent } from '../../shared/jumbotron/jumbotron.component';
+import { HeroComponent } from './components/hero/hero.component';
+import { CardComponent } from './components/card/card.component';
+import { JumbotronComponent } from './components/jumbotron/jumbotron.component';
 import { provideIcons } from '@ng-icons/core';
 import ScrollReveal from 'scrollreveal';
 
@@ -11,7 +11,7 @@ import {
   heroPaintBrushSolid,
   heroStarSolid,
 } from '@ng-icons/heroicons/solid';
-import { TestimonialsComponent } from '../../shared/testimonials/testimonials.component';
+import { TestimonialsComponent } from './components/testimonials/testimonials.component';
 
 @Component({
   selector: 'app-landing',
