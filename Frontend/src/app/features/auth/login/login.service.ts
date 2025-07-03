@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { AuthApiService } from '../services/auth-api.service';
-import { AuthResponse, Users } from '../models/users.model';
-import { Observable, tap } from 'rxjs';
+import { AuthResponse, LoginRequest } from '../../../models/auth.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  constructor(private authApi: AuthApiService) {}
+  private authApi = inject(AuthApiService);
 
   login(email: string, password: string): Observable<AuthResponse> {
-    return this.authApi.login({ email, password });
+    const credentials: LoginRequest = { email, password };
+    return this.authApi.login(credentials);
   }
 }
