@@ -8,6 +8,13 @@
     <div class="flex flex-col mb-3">
       <label class="mb-3" for="name">Nombre de la plantilla</label>
       <input class="border rounded-md p-2" type="text" formControlName="name" />
+      <small
+        *ngIf="
+          templateForm.get('name')?.invalid && templateForm.get('name')?.touched
+        "
+      >
+        Ingrese un nombre.
+      </small>
     </div>
     <div class="flex flex-col mb-3">
       <label class="mb-3" for="name">Asunto</label>
@@ -16,6 +23,14 @@
         type="text"
         formControlName="subject"
       />
+      <small
+        *ngIf="
+          templateForm.get('subject')?.invalid &&
+          templateForm.get('subject')?.touched
+        "
+      >
+        Ingrese un asunto.
+      </small>
     </div>
     <div class="flex flex-col mb-3">
       <label class="mb-3" for="name">Seleccionar categoria</label>
@@ -25,6 +40,15 @@
         <option value="newsletter">Newsletter</option>
         <option value="bienvenida">Bienvenida</option>
       </select>
+
+      <small
+        *ngIf="
+          templateForm.get('category')?.invalid &&
+          templateForm.get('category')?.touched
+        "
+      >
+        Seleccione una categoria.
+      </small>
     </div>
     <div class="flex flex-col mb-3">
       <label class="mb-3" for="name">Mensaje</label>
@@ -32,16 +56,34 @@
         class="border rounded-md p-2 h-[200px] resize-none"
         formControlName="message"
       ></textarea>
+
+      <small
+        *ngIf="
+          templateForm.get('message')?.invalid &&
+          templateForm.get('message')?.touched
+        "
+      >
+        Ingrese un mensaje.
+      </small>
     </div>
     <div class="flex justify-between items-center mb-3">
       <h3 class="text-3xl font-bold">Plantilla</h3>
       <div>
-        <button type="submit" class="bg-violet-400 p-4 rounded-md text-white">
+        <button
+          type="submit"
+          class="bg-violet-400 p-4 rounded-md text-white mr-4"
+        >
           Guardar template
         </button>
-        <!-- <button type="submit" class="bg-violet-400 p-4 rounded-md text-white">
+        <button
+          type="button"
+          (click)="downloadTemplate()"
+          class="bg-violet-400 p-4 rounded-md text-white"
+        >
           Descargar template
         </button>
+
+        <!-- 
         <button type="submit" class="bg-violet-400 p-4 rounded-md text-white">
           Enviar a borrador
         </button> -->
