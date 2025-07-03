@@ -1,7 +1,6 @@
 require("dotenv").config(); // Carga  variables de entorno del archivo `.env` (`DB_NAME`, `DB_USER`, etc.). Es para no tener datos sensibles en el código fuente.
-const pg = require("pg");
 const { Sequelize } = require("sequelize"); // Importacion del constructor Sequelize desde el ORM Sequelize. Es para instanciar una conexión a la base de datos.
-
+const mysql2 = require("mysql2");
 // Inicializa Sequelize con los datos de conexión:
 const conecction = new Sequelize(
   process.env.DB_NAME, // Nombre de tu base de datos en Neon
@@ -9,21 +8,20 @@ const conecction = new Sequelize(
   process.env.DB_PASS, // Contraseña del usuario
   {
     host: process.env.DB_HOST, // Dirección del host
-    port: process.env.DB_PORT || 5432, // Puerto de PostgreSQL (por default 5432)
-    dialect: "postgres", // El tipo de base de datos que usamos(postgres)
-    dialectModule: pg,
-
+    port: process.env.DB_PORT || 3306, // Puerto de PostgreSQL (por default 5432)
+    dialect: "mysql", // El tipo de base de datos que usamos(postgres)
+    dialectModule: mysql2, // driver
     // Esto le indica a Sequelize que:
-    dialectOptions: {
-      // 1. Se tiene que usar SSL porque Neon sólo acepta conexiones seguras
-      // 2. rejectUnauthorized: false permite que se conecte aunque el certificado no esté verificado contra una autoridad de confianza (útil en desarrollo y obligatorio con Neon)
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-      // Desactiva los logs de SQL por consola. Si ponemos true, muestra cada query que ejecuta Sequelize.
-      // Útil para depuración.
-      logging: false,
+    // Desactiva los logs de SQL por consola. Si ponemos true, muestra cada query que ejecuta Sequelize.
+    // Útil para depuración.
+    logging: false,
+
+    // pool de conexiones
+    pool: {
+      max: 5, // Máximo de conexiones simultáneas
+      min: 0, // Mínimo de conexiones inactivas
+      acquire: 30000, // Tiempo máximo (en ms) para conctarse
+      idle: 10000, // Tiempo máximo (en ms) de conexion inactiva
     },
   }
 );
